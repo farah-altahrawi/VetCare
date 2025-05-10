@@ -31,3 +31,16 @@ export const create = async(req,res)=>{
     return res.status(201).json({message:"success"});
 
 }
+
+export const remove = async(req,res)=>{
+        const {id} = req.params;
+
+        const review = await reviewModel.findOneAndDelete({_id:id, userId:req.id});
+    
+        if(!review){
+            return res.status(404).json({message:"review not found"});
+        }
+    
+        return res.status(200).json({message:"success"});
+    
+}
