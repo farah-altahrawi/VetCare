@@ -3,11 +3,12 @@ import bcrypt from "bcryptjs";
 import { sendEmail } from "../../utils/sendEmail.js";
 import jwt from 'jsonwebtoken';
 import { customAlphabet, nanoid } from 'nanoid';
+import vetModel from "../../../DB/models/vet.model.js";
 
 
 export const register = async (req,res,next)=>{
 
-    const { userName, email, password } = req.body; 
+    const { userName, email, password, role } = req.body; 
 
     const user = await userModel.findOne({email});
 
@@ -17,8 +18,18 @@ export const register = async (req,res,next)=>{
     }
     const hashedPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUND));
 
-    const createdUser = await userModel.create({userName, email,
+    const createdUser = await userModel.create({userName, email, role,
         password:hashedPassword});
+
+    console.log(email);
+
+    if (role === 'vet'){
+        const {contact, availableTimes} = req.body; 
+        /*const createdVet = */ 
+        await vetModel.create({userId:createdUser._id,vetName:userName, contact, availableTimes/*, status: 'not_active'*/});
+        await userModel.updateOne({_id: createdUser._id},{$set: {status:'not_active'}});
+ 
+    }
 
     const token = jwt.sign({email},process.env.CONFIRMEMAILSIGNAL);
 
@@ -30,10 +41,13 @@ export const register = async (req,res,next)=>{
     </div>`;
 
     await sendEmail(email,"confirm email",html)
-    
-        return res.status(201).json({message:"success",user:createdUser});
+
+        const finalUser = await userModel.findById(createdUser._id);
+        return res.status(201).json({message:"success",user:finalUser});
+        /*return res.status(201).json({message:"success",user:createdUser});*/
     
 }
+
 
 export const confirmEmail = async (req,res)=>{
     const {token} = req.params;

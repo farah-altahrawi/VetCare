@@ -1,4 +1,4 @@
-import { Schema, model, mongoose } from "mongoose";
+import { Schema, model, mongoose, Types } from "mongoose";
 
 const petSchema = new Schema(
   {

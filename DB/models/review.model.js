@@ -19,9 +19,9 @@ const reviewSchema = new Schema (
             ref:'User',
             required:true,
         },
-        productId:{
+        vetId:{
             type: Types.ObjectId,
-            ref:'Product',
+            ref:'Vet',
             required:true,
         }
     },

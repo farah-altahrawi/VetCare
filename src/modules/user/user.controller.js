@@ -29,8 +29,8 @@ export const changeStatus = async (req,res)=>{
         return res.status(404).json({message:"user not found"});
     }
 
-    if(user.role !== 'user'){
-        return res.status(403).json({message:"you can change status for users"})
+    if(user.role !== 'user' && user.role !== 'vet'){
+        return res.status(403).json({message:"you can change status for users or vets"});
     }
 
     if( !['active','not_active'].includes(status)){
@@ -46,10 +46,10 @@ export const changeStatus = async (req,res)=>{
 export const removeUser = async (req,res)=>{
 
     const {id} = req.params;
-    const user = await userModel.findOneAndDelete({_id:id, role:'user'});
+    const user = await userModel.findOneAndDelete({_id:id, $or: [{role:'user'},{role: 'vet'}]});
 
     if(!user){
-        return res.status(404).json({message:"user not found or not user"});
+        return res.status(404).json({message:"user not found or not user / vet"});
     }
 
     return res.status(200).json({message:"success"});

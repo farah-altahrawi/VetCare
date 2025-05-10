@@ -1,4 +1,4 @@
-import { Schema, model, mongoose } from "mongoose";
+import { Schema, model, mongoose, Types } from "mongoose";
 
 const appointmentSchema = new Schema(
   {
@@ -26,6 +26,10 @@ const appointmentSchema = new Schema(
       type: Date,
       required: true,
     },
+     phoneNumber:{
+      type:Number,
+      required: true,
+    },
     status: {
       type: String,
       default: "pending",
@@ -33,6 +37,14 @@ const appointmentSchema = new Schema(
     },
     couponCode: {
       type: String,
+    },
+    finalPrice: {
+      type:Number,
+    },
+    note:String,
+    updatedBy: {
+      type: Types.ObjectId,
+      ref: 'User',
     },
   },
   {

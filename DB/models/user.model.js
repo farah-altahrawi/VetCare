@@ -44,12 +44,12 @@ const userSchema = new Schema (
         role: {
             type: String,
             default:'user',
-            enum: ['superadmin','admin','user'],
+            enum: ['superadmin','admin','user','vet'],
         },
         sendCode: {
             type: String,
             default: null,
-        }
+        },
     },
     {
         timestamps: true,

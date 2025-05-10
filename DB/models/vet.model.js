@@ -1,4 +1,4 @@
-import { Schema , model , mongoose } from "mongoose";
+import { Schema , model , mongoose, Types } from "mongoose";
 
 const vetSchema = new Schema (
     {
@@ -8,24 +8,18 @@ const vetSchema = new Schema (
             min: 3,
             max: 50,
         },
-        email: {
-            type:String,
-            required:true,
-            unique: true,
-        },
         image: {
             type: Object,
         },
-        phone: {
-            type: String,
-        },
-        address: {
-            type: String,
-        },
-        status: {
-            type: String,
-            default:'active',
-            enum: ['active','not_active'],
+        contact: {
+            phone: {
+                type: String,
+                required:true,
+            },
+            address: {
+                type: String,
+                required:true,
+            },
         },
         availableTimes: [{
             day: {
@@ -41,12 +35,28 @@ const vetSchema = new Schema (
             required: true, 
             },
         }],
+        availableAppointments: [{
+            type: Date,
+        }],
+        userId:{
+            type: Types.ObjectId,
+            required:true,
+            ref:'User',
+        },
 
     },
     {
         timestamps: true,
+        toJSON:{virtuals:true},
+        toObject:{virtuals:true},
     }
 );
+
+vetSchema.virtual('reviews',{
+    ref:'Review',
+    localField:'_id',
+    foreignField:'vetId'
+});
 
 const vetModel = mongoose.model.Vet || model('Vet', vetSchema);
 export default vetModel; 
