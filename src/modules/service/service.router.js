@@ -11,7 +11,10 @@ router.post('/create',auth(['superadmin','admin']),fileUpload(fileValidation.ima
     {name:'subImages',maxCount:4}
 ]),controller.createService);
 router.get('/:id',controller.getServiceDetails);
-router.patch('/:id',auth(['superadmin','admin']),controller.updateService);
+router.patch('/:id',auth(['superadmin','admin']),fileUpload(fileValidation.image).fields([
+    {name:'mainImage',maxCount:1},
+    {name:'subImages',maxCount:4}
+]),controller.updateService);
 router.delete('/:id',auth(['superadmin','admin']),controller.removeService);
 
 

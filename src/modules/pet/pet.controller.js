@@ -10,7 +10,7 @@ export const addPet = async (req,res)=>{
     const newPet = await petModel.create({userId:userId,...req.body});
 
 
-    return res.status(201).json({message:"success",newPet});
+    return res.status(201).json({message:"Pet added successfully",newPet});
 }
 
 export const getAllPets = async (req,res)=>{
@@ -53,7 +53,7 @@ export const updatePet = async (req,res)=>{
     pet.medicalHistory = medicalHistory;
     await pet.save();
 
-    return res.status(200).json({message:"success"});
+    return res.status(200).json({message:"Pet updated successfully"});
 }
 
 export const removePet = async (req,res)=>{
@@ -65,5 +65,5 @@ export const removePet = async (req,res)=>{
         return res.status(404).json({message:"pet not found"});
     }
 
-    return res.status(200).json({message:"success"});
+    return res.status(200).json({message:"Pet removed successfully"});
 }

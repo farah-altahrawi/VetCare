@@ -13,7 +13,7 @@ export const createCoupon = async(req,res)=>{
 
     const coupon = await couponModel.create(req.body);
 
-    return res.status(201).json({message:"success",coupon});
+    return res.status(201).json({message:"Coupon created successfully",coupon});
 }
 
 export const getCoupon = async(req,res)=>{
@@ -40,7 +40,7 @@ export const updateCoupon = async(req,res)=>{
         coupon.updatedBy = req.id;
         await coupon.save();
     
-        return res.status(200).json({message:"success"});
+        return res.status(200).json({message:"Coupon updated successfully"});
 }
 
 export const removeCoupon = async (req,res)=>{
@@ -52,7 +52,7 @@ export const removeCoupon = async (req,res)=>{
         return res.status(404).json({message:"coupon not found"});
     }
 
-    return res.status(200).json({message:"success"});
+    return res.status(200).json({message:"Coupon removed successfully"});
 }
 
 

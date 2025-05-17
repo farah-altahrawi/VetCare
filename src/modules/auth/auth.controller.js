@@ -43,7 +43,7 @@ export const register = async (req,res,next)=>{
     await sendEmail(email,"confirm email",html)
 
         const finalUser = await userModel.findById(createdUser._id);
-        return res.status(201).json({message:"success",user:finalUser});
+        return res.status(201).json({message:"Registered successfully",user:finalUser});
         /*return res.status(201).json({message:"success",user:createdUser});*/
     
 }
@@ -53,7 +53,7 @@ export const confirmEmail = async (req,res)=>{
     const {token} = req.params;
     const decoded = jwt.verify(token, process.env.CONFIRMEMAILSIGNAL);
     await userModel.findOneAndUpdate({email:decoded.email},{confirmEmail:true});
-    return res.status(200).json({message:"success"});
+    return res.status(200).json({message:"Email confirmed successfully"});
 
 }
 
@@ -81,7 +81,7 @@ export const login = async(req,res)=>{
 
     const token = jwt.sign({id:user._id,userName:user,role:user.role},process.env.LOGINSIGNAL);
 
-    return res.status(200).json({message:"success",token});
+    return res.status(200).json({message:"Logged in successfully",token});
 
 }
 
@@ -93,7 +93,7 @@ export const sendCode = async(req,res)=>{
     const html = `<h2>code is ${code}</h2>`;
     await sendEmail(email,"reset password",html);
 
-    return res.status(200).json({message:"success"});
+    return res.status(200).json({message:"Code sent"});
 }
 
 export const resetPassword = async(req,res)=>{
@@ -114,6 +114,6 @@ export const resetPassword = async(req,res)=>{
     user.sendCode = null;
     await user.save();
 
-    return res.status(200).json({message:"success"});
+    return res.status(200).json({message:"Password reset successfully"});
 }
 

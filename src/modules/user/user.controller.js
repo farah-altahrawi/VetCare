@@ -40,7 +40,7 @@ export const changeStatus = async (req,res)=>{
     user.status = status;
     await user.save();
     
-    return res.status(200).json({message:"success"});
+    return res.status(200).json({message:"Status changed successfully"});
 }
 
 export const removeUser = async (req,res)=>{
@@ -52,5 +52,5 @@ export const removeUser = async (req,res)=>{
         return res.status(404).json({message:"user not found or not user / vet"});
     }
 
-    return res.status(200).json({message:"success"});
+    return res.status(200).json({message:"User / Vet removed successfully"});
 }

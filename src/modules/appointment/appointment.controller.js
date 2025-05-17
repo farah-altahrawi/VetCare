@@ -88,7 +88,7 @@ export const createAppointment = async(req,res)=>{
         }
     );
 
-        return res.status(201).json({message:"success",appointment});
+        return res.status(201).json({message:"Appointment booked successfully",appointment});
 
     
 }
@@ -163,7 +163,7 @@ export const changeStatus = async(req,res)=>{
         );
     }
     
-    return res.status(200).json({message:"success"});
+    return res.status(200).json({message:"Status changed successfully"});
 }
 
 export const removeAppointment = async(req,res)=>{
@@ -201,7 +201,7 @@ export const removeAppointment = async(req,res)=>{
 
     await appointmentModel.deleteOne({_id:id});
 
-    return res.status(200).json({message:"appointment removed successsfully"});
+    return res.status(200).json({message:"Appointment cancelled successsfully"});
 }
 
 

@@ -32,7 +32,6 @@ export const getVet = async (req,res)=>{
 }
 
 export const addAvailableAppointments = async(req,res)=>{
-    //const {id} = req.params; 
     const {availableAppointments} = req.body;
 
     const vet = await vetModel.findOne({userId:req.id});
@@ -46,7 +45,7 @@ export const addAvailableAppointments = async(req,res)=>{
     }
     await vet.save();
 
-    return res.status(200).json({message:"Appointment Added",vet});
+    return res.status(200).json({message:"Appointment added successfully",vet});
 
 
 }
@@ -73,6 +72,6 @@ export const updateVet = async(req,res)=>{
         }
         await vet.save();
     
-        return res.status(200).json({message:"success"});
+        return res.status(200).json({message:"Vet updated successfully"});
     
 }

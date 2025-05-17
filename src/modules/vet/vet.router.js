@@ -12,8 +12,5 @@ router.get('/:id',controller.getVet);
 router.patch('/availableAppointments',auth(['vet']),controller.addAvailableAppointments);
 router.patch('/updateVet',auth(['vet']),controller.updateVet);
 
-//router.delete('/:id',auth(['superadmin']),controller.removeUser);
-
-
 
 export default router; 

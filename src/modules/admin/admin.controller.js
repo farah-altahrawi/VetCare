@@ -42,7 +42,7 @@ export const addAdmin = async (req,res)=>{
     
         await sendEmail(email,"confirm email",html)
         
-            return res.status(201).json({message:"success",user:createdAdmin});
+            return res.status(201).json({message:"Admin created successfully",user:createdAdmin});
 }
 
 export const updateAdmin = async (req,res)=>{
@@ -62,7 +62,7 @@ export const updateAdmin = async (req,res)=>{
         updatedAdmin.role = role;
         await updatedAdmin.save();
     
-        return res.status(200).json({message:"success"});
+        return res.status(200).json({message:"Admin updated successfully"});
     
 }
 
@@ -74,7 +74,7 @@ export const removeAdmin = async (req,res)=>{
         return res.status(404).json({message:"admin not found"});
     }
 
-    return res.status(200).json({message:"success"});
+    return res.status(200).json({message:"Admin removed successfully"});
 }
 
 export const changeAdminStatus = async (req,res)=>{
@@ -93,5 +93,5 @@ export const changeAdminStatus = async (req,res)=>{
     admin.status = req.body.status;
     await admin.save();
     
-    return res.status(200).json({message:"success"});
+    return res.status(200).json({message:"Status changed successfully"});
 }
